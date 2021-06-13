@@ -1,0 +1,131 @@
+typedef int peanut;
+//the scope of typedef is based on where we place it.
+
+peanut a; 	//declaring a variable a of type peanut 
+			//which is declared to be type int.
+
+struct s_point; //declaring a struct.
+{
+	int x;
+	int y;
+}; 		t_point; //alias for struct_s_point   //define with curly brackets and semi colon
+
+example:
+int main(void)
+{
+	struct s_point a; => t_point a; // make declaring the function easier
+	struct s_point b;
+	t_point *ptr;
+	
+	a.x = 10;
+	a.y = 42;
+
+	b = a; 
+	ptr = &a; // pointer to address of a.
+	(*ptr).x = 10; //retrieving value of x from address a.
+	ptr->x = 10; // different way to do same as above.
+
+	return 0;
+} 	// Use pointers to structures in general 
+
+Day11:
+You’ll have to include this structure in a file ft_list.h and submit it for each
+exercise.
+
+• From exercise 01 onward, we’ll use our ft_create_elem, so make arrangements 
+(it could be useful to have its prototype in a file ft_list.h...).
+
+Create the function ft_create_elem which creates a new element of t_list type.
+• It should assign data to the given argument and next to NULL.
+• Here’s how it should be prototyped :
+
+########## print_list.c ###########
+#include "ft_list.h"
+
+void print_list(t_list *list)
+{
+	while(list) //As long as list does not equal NULL
+	{
+		printf("%d", list->data);
+		list = list->next;
+	}
+}
+
+########## ft_list.h ###########
+/*
+#ifndef FT_LIST_H
+# define FT_LIST_H
+
+typedef struct	s_list
+{
+	struct s_list	*next;
+	void			*data;
+}					t_list;
+
+t_list *add_link(t_list *list, void *data);
+void	print_list(t_list *list);
+
+#endif */
+
+########## add_link.c ###########
+/*
+#include FT_LIST_H
+#include <stdlib.h>
+
+t_list *add_link(t_list *list, void *data)
+{
+	t_list *tmp;
+	tmp = malloc(sizeof(t_list));
+	if (tmp)
+	{
+		tmp->data = data;
+		tmp->next = list;
+	}
+	return tmp;
+}
+*/
+
+int main(void)
+{
+	t_list *list;
+
+	list = NULL;
+
+	list = add_link(list, "toto\n")
+	list = add_link(list, "tata\n")
+	list = add_link(list, "tutu\n")
+
+	print_list(list);
+
+	return (0);
+}
+
+
+NEW TIPS:
+int add_link(t_list **list, void *data)
+{
+	//**
+	*list = malloc();
+}
+
+int main(void)
+{
+	t_list *list;
+
+	list = NULL;
+
+/*	int i = 10;
+	int *p = &i;
+	int **pp;
+	pp = &p; */ **
+
+	add_link(&list, "titi");
+
+	list = add_link(list, "toto\n")
+	list = add_link(list, "tata\n")
+	list = add_link(list, "tutu\n")
+
+	print_list(list);
+
+	return (0);
+}

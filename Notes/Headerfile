@@ -1,0 +1,56 @@
+#include "name.h" 
+
+"" = local. 
+
+preprocessor terminal; command:
+cpp main.c
+
+#define NAME "Hello World!" // replace 
+
+char *str = NAME; 
+
+example
+
+#define NAME(x) int x;
+
+int main (void)
+{
+	NAME(a)
+	NAME(b)
+	return 0;
+}
+
+= int a, int b; 
+
+#ifdef/#ifndef //ifndef (ifNOTdefined)
+
+#ifdef TOTO //if in list of defines then do 
+
+
+#endif
+
+
+
+multiple inclusions
+
+#include "test1.h"
+
+test1.h {
+#ifndef __FT_TEST1_H__ // If ft test1 has not been defined then continue
+# define __FT_TEST1_H__
+#include "test2.h"
+
+void Test1 (void);
+#endif
+}
+
+
+
+test2.h {
+#ifndef __FT_TEST2_H__
+# define __FT_TEST2_H__
+#include "test1.h"
+void test2(void);
+#endif
+
+}

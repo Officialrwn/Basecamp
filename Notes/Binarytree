@@ -1,0 +1,69 @@
+Chained list has one following element.
+Binary tree has 2, left and right and can store data of any type.
+Each node has 2 data, on the left is all element that is inferior to it and on the right the element that is superior or equal.
+
+			2
+	1				3
+0		1				4
+
+We can traverse a tree faster due to its structure. Useful when storing large amount of data. 
+
+Binary tree struct:
+
+typedef struct		s_btree
+{
+	struct s_btree	*parent; 
+	struct s_btree	*right;
+	struct s_btree	*left;
+	void			*data;
+}					t_btree;
+
+Traversing a tree has different ways to do it. To balance a tree we use a red black tree.
+
+enum	e_rb_color
+	{
+		RB_BLACK,
+		RB_RED
+	};
+
+typedef struct			s_rb_node
+{
+	struct s_rb_node	*parent;
+	struct s_rb_node	*right;
+	struct s_rb_node	*left;
+	void				*data;
+	enum e_rb_color		color;
+}						t_rb_node;
+
+//Parent node is black, by default all nodes are red.
+//there are several ways of insertions, this is one of them
+
+0. Begin
+
+				G(B)
+			P(R)	U(B)
+		N(R)
+
+1. intermediate
+
+				P(R)
+			N(R)	G(B)
+						U(B)
+
+2. end
+
+				P(B)
+			N(R)	G(R)
+						U(B)
+
+Advice given: Create a function that displays the tree, also display nodes that are NULL.
+To check if tree is balanced. 
+
+// Root = lvl 0. Max number of nodes at level i = 2^i. Max level 3? 
+// A complete tree does not need the last level to be filled but the nodes have to be as left as possible.
+
+
+Create a function btree_apply_prefix which 
+applies the function given as argument 
+to the item of each node, 
+using prefix traversal to search the tree.

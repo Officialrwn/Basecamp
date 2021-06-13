@@ -1,0 +1,177 @@
+man 2 open
+int open(char *path, int flags[, mode_t_perm]); // path, open mode (read, write), permission is incase of file creation
+// retruns an int that corresponds to the file description or -1 incase for error.
+
+Flags:
+O_RDONLY
+O_WRONLY
+O_RDWR
+
+O_CREAT // Create file
+O_TRUNC // Set size
+O_APPEND // 
+
+Example code:
+
+############################# CREATE AND READ FILE #############################
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include "j12.h" // d12.h headerfile
+
+int main() //Readfile
+{
+	int fd;
+
+	fd = open("alph", O_RDONLY); // Reads a file
+	ft_putnbr(fd); // Int output that tells if file was found
+	return (0);
+} // File is now open.
+
+int main() // Create file
+{
+	int fd;
+
+	fd = open("42", O_WRONLY | O_CREAT | S_IRUSR | S_IWUSR); // S_IRUSR & S_IWUSR is giving WR permission to te created file
+	
+	if (fd == -1) // important error handling
+		ft_putstr("open() failed\n");
+	ft_putnbr(fd); // Int output that tells if file was found
+	
+	return (0);
+} // File is now open.
+
+################Closing files: man 2 close#############################
+int close(int fd); // fd = file description
+
+int main()
+{
+	int fd;
+
+	fd = open("42", O_WRONLY | O_CREAT | S_IRUSR | S_IWUSR); // S_IRUSR & S_IWUSR is giving WR permission to te created file
+	
+	if (fd == -1) // important error handling
+		ft_putstr("open() failed\n");
+	
+	ft_putnbr(fd); // Int output that tells if file was found
+	if (close(fd) == -1)
+	{
+		ft_putstr("close() failed\n");
+		return (1);
+	}
+	return (0);
+} // File is now open.
+
+
+############################# write file: #############################
+// man 2 write // int write (int fd, char *buf, int count); // fd = file description, buf = buffer source, count // 
+
+void ft_putstr_fd(int fd, char *str) // changed from ft_putchar(int fd, char c) 
+{
+	write(fd, str, ft_strlen(str));
+}
+
+int main() 
+{
+	int fd;
+
+	fd = open("42", O_WRONLY | O_CREAT | O_APPEND, S_IRUSR | S_IWUSR); // S_IRUSR & S_IWUSR is giving WR permission to te created file / O_APPEND = moves the filepointer to end of file before writing.
+	
+	if (fd == -1) // important error handling
+		ft_putstr("open() failed\n");
+	
+	ft_putnbr(fd); // Int output that tells if file was found
+
+	ft_putstr_fd(fd, "Hello World!\n"); //changed from putchar(fd, 'Z');
+
+	if (close(fd) == -1)
+	{
+		ft_putstr("close() failed\n");
+		return (1);
+	}
+	return (0);
+} // Each time its launched it writes the ft_put again.
+
+############################# Reading a file: #############################
+// man 2 read // int read(int fd, char *buf, int count)
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include "j12.h" // d12.h headerfile
+
+#define BUF_SIZE 10 //Setting buffer size (HAS TO BE FREE() end of function when using define) // **Changed 4096 to 10 when doing while loop
+
+int main() 
+{
+	int fd;
+	int ret;
+	char buf[BUF_SIZE + 1]; // Can also be created with malloc instead of #define 
+
+
+	fd = open("42", O_RDONLY); 
+	
+	if (fd == -1) // important error handling
+	{
+		ft_putstr("open() failed\n");
+		return (1);
+	}
+	
+	//Asking read to read 4096 from the file 42 and saved them in buf
+	while (ret = read(fd, buf, BUF_SIZE))  // **some cases we wont know how many bytes we read so we use while loop.
+	{
+		buf[ret] = '\0'; 
+		ft_putnbr(ret);
+		ft_putstr(buf);
+	}; 
+	/*	buf[ret] = '\0'; // Nullbyte end of string
+		ft_putnbr(ret); //print number of bytes read.
+		ft_putstr(buf); //print buffer.
+	*/ these were put in the while loop. ** 
+
+	if (close(fd) == -1)
+	{
+		ft_putstr("close() failed\n");
+		return (1);
+	}
+	return (0);
+} 
+
+############################# OFFSET #############################
+man 2 lseek // int lseek(int fd, int offset, int mode); 
+
+one example:
+lseek (42, -40, SEEK_)END); = 2 // 42-40 = 2 // File name 42 , Offset -40, from end of file // and we are back to second byte of the file
+
+Code example:
+
+int main() 
+{
+	int fd;
+	int ret;
+	char buf[BUF_SIZE + 1]; // Can also be created with malloc instead of #define 
+
+
+	fd = open("42", O_RDONLY); 
+	
+	if (fd == -1) // important error handling
+	{
+		ft_putstr("open() failed\n");
+		return (1);
+	}
+	
+	while (ret = read(fd, buf, BUF_SIZE)) 
+	{
+		buf[ret] = '\0'; 
+		ft_putnbr(ret);
+		ft_putstr(buf);
+		lseek(fd, -10, SEEK_END); // will create an infinite loop but this is just illustration
+	} 
+
+	if (close(fd) == -1)
+	{
+		ft_putstr("close() failed\n");
+		return (1);
+	}
+	return (0);
+} 

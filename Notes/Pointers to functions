@@ -1,0 +1,40 @@
+int x;
+int *y;
+
+void f(char c);
+
+void	(*funptr)(char);
+
+
+typedef void (*funptr)(char); //**
+
+int main()
+{
+	/*
+	void (*f)(char); 	//declaring pointer to a function of type char.
+						//name of pointer is f //(*f) */
+	
+	funptr	f; //** declare a pointer to a function of typedef char.
+	
+	f = &ft_putchar;
+	f('z'); 
+
+	return 0;
+}
+
+example in pseudo code:
+
+fun_tab = { ( STDOUT, &put_stdout );
+			( FILE, &put_file );
+			( NETWORK,&put_network ); }
+
+function put( where, what )
+{
+	for ( where_r, put_function ) in fun_tab
+	{
+		if (where == where_r )
+			put_function( what );
+	}
+}
+
+

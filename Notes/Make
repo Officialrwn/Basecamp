@@ -1,0 +1,45 @@
+Create a makefile and put in commands
+@ infront of commands 
+removes printing the command. 
+
+Rule name:
+	Needs to have indentation
+
+Execute through terminal by typing make "rulename"
+
+To exec rule a before rule b: 
+
+rule_a:
+	echo "rule a"
+rule_b: rule a
+	echo "rule b"
+
+How to make variables
+
+TEXT = "42 is for the brave" // TEXT is a variable.
+
+how to use: 
+
+rule_a:
+	echo $(TEXT)
+
+with no parameter it prints first rule. 
+
+Examples of Makefile:
+
+NAME = awesomeprog
+
+SRC = source.c // if need more line then use '\'
+
+all: $(NAME)
+
+$(NAME):
+	gcc -o $(NAME) $(SRC)
+
+clean:
+	/bin/rm -f *.o
+
+fclean: clean
+	/bin/rm -f $(NAME)
+
+re: fclean all
