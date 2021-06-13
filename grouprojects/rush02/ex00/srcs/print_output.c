@@ -3,30 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   print_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leotran <leotran@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsamoilo <nsamoilo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 13:52:40 by ajones            #+#    #+#             */
-/*   Updated: 2021/06/13 05:59:49 by leotran          ###   ########.fr       */
+/*   Updated: 2021/06/13 08:21:58 by nsamoilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
 
-void	print_output(int rush_number, int x, int y)
+void	print_output(int rush_number, int x, int y, int count)
 {
 	int		i;
 	char	*str;
 
 	i = 0;
 	str = "[rush-0x] [a] [b]";
+	if (count)
+		ft_putstr(" || ");
 	while (str[i] != '\0')
 	{
 		if (str[i] == 'x')
-			ft_putchar(rush_number + '0');
+			ft_putnbr(rush_number);
 		else if (str[i] == 'a')
-			ft_putchar(x + '0');
+			ft_putnbr(x);
 		else if (str[i] == 'b')
-			ft_putchar(y + '0');
+			ft_putnbr(y);
 		else
 			ft_putchar(str[i]);
 		i++;

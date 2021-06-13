@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rush00.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: leotran <leotran@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nsamoilo <nsamoilo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/12 09:22:28 by leotran           #+#    #+#             */
-/*   Updated: 2021/06/13 06:00:09 by leotran          ###   ########.fr       */
+/*   Updated: 2021/06/13 13:16:24 by nsamoilo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_list.h"
 
-int	g_index_r0 = 0;
+long	g_index_r0 = 0;
 
 void	print_first_row_rush00(int x, char *str)
 {
@@ -88,7 +88,8 @@ char	*rush00(int x, int y)
 	char *str;
 
 	str = malloc(sizeof(char) * ((x + 1) * y + 1));
-	print_first_row_rush00(x, str);
+	if (x > 0)
+		print_first_row_rush00(x, str);
 	while (y > 2)
 	{
 		print_middle_row_rush00(x, str);
